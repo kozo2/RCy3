@@ -18,24 +18,19 @@ assign(".CATCHUP_NETWORK_SECS", 2, envir = RCy3env)
 # ==============================================================================
 # I. Package Utility Functions
 # ------------------------------------------------------------------------------
-# Supply a set of colors from Brewer palettes (without requiring rColorBrewer)
-.cyPalette <- function(name='set1'){
-    
-    set1<-c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3", "#FF7F00", "#FFFF33",
-              "#A65628", "#F781BF", "#999999")
-    set2<-c("#66C2A5", "#FC8D62", "#8DA0CB", "#E78AC3", "#A6D854", "#FFD92F",
-              "#E5C494", "#B3B3B3")
-    set3<-c("#8DD3C7", "#FFFFB3", "#BEBADA", "#FB8072", "#80B1D3", "#FDB462",
-              "#B3DE69", "#FCCDE5", "#D9D9D9", "#BC80BD", "#CCEBC5","#FFED6F")
-    reds<-c("#FFF5F0", "#FEE0D2", "#FCBBA1", "#FC9272", "#FB6A4A", "#EF3B2C",
-            "#CB181D", "#A50F15", "#67000D")
-    rdbu<-c("#67001F", "#B2182B", "#D6604D", "#F4A582", "#FDDBC7", "#F7F7F7",
-            "#D1E5F0", "#92C5DE", "#4393C3", "#2166AC", "#053061")
-    burd<-rev(rdbu)
-    
-    pal<-eval(parse(text = name))
-    return(pal)
-}
+# Validate canvas.
+.checkCanvas <- function(canvas){
+   if(!canvas %in% c("foreground","background"))
+     stop (simpleError(sprintf ('%s is invalid. Use "foreground" or "background"', canvas)))
+ }
+
+# ------------------------------------------------------------------------------
+# Validate font style.
+ .checkFontStyle <- function(style){
+   if(!style %in% c("plain","bold","italic","bolditalic"))
+     stop (simpleError(sprintf ('%s is invalid. Use "plain", "bold", "italic" or "bolditalic"', style)))
+ }
+
 # ------------------------------------------------------------------------------
 # Validate and provide user feedback when hex color codes are required input.
 .checkHexColor <- function(color){
@@ -60,6 +55,16 @@ assign(".CATCHUP_NETWORK_SECS", 2, envir = RCy3env)
 }
 
 # ------------------------------------------------------------------------------
+# Validate positive value.
+.checkPositive <- function(number){
+   if(!is.numeric(number))
+     stop(simpleError('Value must be a positive number.'))
+   if (number <= 0){
+     stop (simpleError(sprintf ('%s is invalid. Number must be positive.', as.character(number))))
+   } 
+ }
+
+# ------------------------------------------------------------------------------
 # Validate and provide user feedback when slot number is outside of range.
 .checkSlot <- function(slot){
     if(is.numeric(slot)){
@@ -72,6 +77,33 @@ assign(".CATCHUP_NETWORK_SECS", 2, envir = RCy3env)
     if (!slot %in% seq_len(9)){
         stop (simpleError(sprintf('%i is invalid. Slot must be an integer between 1 and 9.', slot)))
     }
+}
+
+# ------------------------------------------------------------------------------
+# Validate uniqueness given an existing list of values
+.checkUnique <- function(value, existing.values){
+   if(value %in% existing.values)
+     stop(simpleError(sprintf ('%s is not unique. Please provide a unique value.', as.character(value))))
+ }
+
+# ------------------------------------------------------------------------------
+# Supply a set of colors from Brewer palettes (without requiring rColorBrewer)
+.cyPalette <- function(name='set1'){
+    
+    set1<-c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3", "#FF7F00", "#FFFF33",
+              "#A65628", "#F781BF", "#999999")
+    set2<-c("#66C2A5", "#FC8D62", "#8DA0CB", "#E78AC3", "#A6D854", "#FFD92F",
+              "#E5C494", "#B3B3B3")
+    set3<-c("#8DD3C7", "#FFFFB3", "#BEBADA", "#FB8072", "#80B1D3", "#FDB462",
+              "#B3DE69", "#FCCDE5", "#D9D9D9", "#BC80BD", "#CCEBC5","#FFED6F")
+    reds<-c("#FFF5F0", "#FEE0D2", "#FCBBA1", "#FC9272", "#FB6A4A", "#EF3B2C",
+            "#CB181D", "#A50F15", "#67000D")
+    rdbu<-c("#67001F", "#B2182B", "#D6604D", "#F4A582", "#FDDBC7", "#F7F7F7",
+            "#D1E5F0", "#92C5DE", "#4393C3", "#2166AC", "#053061")
+    burd<-rev(rdbu)
+    
+    pal<-eval(parse(text = name))
+    return(pal)
 }
 
 # ------------------------------------------------------------------------------
@@ -142,6 +174,18 @@ assign(".CATCHUP_NETWORK_SECS", 2, envir = RCy3env)
         edge.names <- dict$name[match(edge.suids, dict$SUID)]
         return(edge.names)
 }
+
+# ------------------------------------------------------------------------------
+# Validates and transforms rotation values to match desired range.
+ .normalizeRotation <- function(degree){
+   if(!is.numeric(degree))
+       stop(simpleError('Angle must be a number.'))
+   while (degree <= -180) 
+     degree <- degree + 360
+   while (degree > 180)
+     degree <- degree - 360
+   return(degree) #-180 to +180 range to match GUI
+ }
 
 # ------------------------------------------------------------------------------
 # Checks to see if a particular column name exists in the specific table. Returns
