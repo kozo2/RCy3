@@ -1,57 +1,3 @@
-## Testing automation of annotations
-
- library(RCy3)
- 
- ## stuff already in RCy3 package
- .defaultBaseUrl <- 'http://localhost:1234/v1'
- .checkHexColor <- function(color){
-   if ((substring(color, 1, 1) != "#") || (nchar(color) !=7)) {
-     stop (simpleError(sprintf ('%s is not a valid hexadecimal color, e.g. #FD39B8.', color)))
-   }
- }
- .checkOpacity <- function(opacity){
-   if(is.numeric(opacity)){
-     if(opacity%%1 != 0){
-       stop(simpleError('Opacity must be an integer between 0 and 255.'))
-     }
-   } else {
-     stop(simpleError('Opacity must be an integer between 0 and 255.'))
-   }
-   if (opacity < 0 || opacity > 255){
-     stop (simpleError(sprintf ('%i is invalid. Opacity must be between 0 and 255.', opacity)))
-   } 
- }
-
- # Additional checks to add to RCy3-utils.R
- .normalizeRotation <- function(degree){
-   if(!is.numeric(degree))
-       stop(simpleError('Angle must be a number.'))
-   while (degree <= -180) 
-     degree <- degree + 360
-   while (degree > 180)
-     degree <- degree - 360
-   return(degree) #-180 to +180 range to match GUI
- }
- .checkUnique <- function(value, existing.values){
-   if(value %in% existing.values)
-     stop(simpleError(sprintf ('%s is not unique. Please provide a unique value.', as.character(value))))
- }
- .checkPositive <- function(number){
-   if(!is.numeric(number))
-     stop(simpleError('Value must be a positive number.'))
-   if (number <= 0){
-     stop (simpleError(sprintf ('%s is invalid. Number must be positive.', as.character(number))))
-   } 
- }
- .checkFontStyle <- function(style){
-   if(!style %in% c("plain","bold","italic","bolditalic"))
-     stop (simpleError(sprintf ('%s is invalid. Use "plain", "bold", "italic" or "bolditalic"', style)))
- }
- .checkCanvas <- function(canvas){
-   if(!canvas %in% c("foreground","background"))
-     stop (simpleError(sprintf ('%s is invalid. Use "foreground" or "background"', canvas)))
- }
- 
 # list available commands for annotations
 #commandsHelp("annotation")
 #commandsHelp("annotation add text")
@@ -170,21 +116,3 @@ getAnnotationList<-function(network = NULL, base.url = .defaultBaseUrl){
   
   commandsPOST(cmd.string, base.url)
 }
-
-
-#############
-# TESTS
-
-openSession("/Applications/Cytoscape_v3.8.1/sampleData/sessions/Yeast Perturbation.cys")
-
-#addAnnotationText("test1")
-#addAnnotationText("test2", 1000, 1000, name="T2")
-addAnnotationText("test!@#$%^3", 1000, 1000, 30, "Helvetica", "bolditalic", "#990000",680,name="T3", canvas="background",z=10)
-addAnnotationText("test\n2", 1200, 1000, 30, "Courier New", "bold", "#009900",0,name="T2", canvas="foreground",z=1)
-addAnnotationText("test\t1", 1400, 1000, 30, "Comic sans MS", "italic", "#000099",40,name="T1", canvas="foreground",z=0)
-
-ann.list <- getAnnotationList()
-ann.uuids <- sapply(ann.list, '[[', 'uuid')
-
-#deleteAnnotation(ann.uuids[1])
-#deleteAnnotation(sapply(ann.list, '[[', 'uuid'))
