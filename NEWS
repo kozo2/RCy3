@@ -1,6 +1,6 @@
 Changes in version 2.24.0
-+ use stringi to replace uchardet
-+ add test functions
++ Use stringi to replace uchardet
++ Add test functions
 + Doc fixes:
  - add "c" to anchor choices
 + Bug fixes:
