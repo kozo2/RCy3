@@ -1,3 +1,26 @@
+Changes in version 2.24.0
++ use stringi to replace uchardet
++ add test functions
++ Doc fixes:
+ - add "c" to anchor choices
++ Bug fixes:
+ - fix setNodePositionBypass to support network and base.url
+ - use viridis color palette for continuous mapping, #210
+Changes in version 2.22.0
++ New functions:
+ - setNodePositionBypass
+ - getNodeLabelPosition
+ - setNodeLabelPositionBypass
+ - setNodeLabelPositionDefault
+ - getNodeLabelPositionDefault
+ - rotateLayout
+ - scaleLayout
++ Update .verifySupportedVersions to support x.y.z
++ Bug fixes:
+ - sync node/edge_name_to_suid utility functions to include new unique_list=False parameter, #139
+ - getCurrentStyle and getNetworkName don't work with base.url specified, #208
+ - styleBypasses.lockNodeDimensions calls don't propagate base.url, #209
+ - no return value comes from the cytoscapePing function with the changed base.url parameter, #212
 Changes in version 2.20.0
 + Add a delay in mergeNetworks method
  - Wait for Cytoscape to finish adding annotations column to Network table
