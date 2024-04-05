@@ -2616,7 +2616,7 @@ paletteColorBrewerBrBG<-function(value.count=3) {
 #'
 #' @description Generate a Virdis Brewer palette of a given size
 #' @param value.count Number of colors to generate; min is 3 (default); max is 9
-#' Get colors from https://cran.r-project.org/web/packages/viridis/index.html
+#' Get colors from viridis: Colorblind-Friendly Color Maps for R
 #' . See virdis::virdis()
 #' @return List of palette colors
 #' @examples

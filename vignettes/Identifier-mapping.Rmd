@@ -211,6 +211,6 @@ installApp('BridgeDb')
 
 And then browse the available function with 
 
-  ```{r}
+```{r}
 commandsHelp('bridgedb') 
 ```
