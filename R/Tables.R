@@ -321,6 +321,9 @@ loadTableData <- function(data,
     
     data.subset = data[filter, ]
     
+    data.subset[data.subset == "Inf"] <- .Machine$integer.max
+    data.subset[data.subset == "-Inf"] <- -.Machine$integer.max
+    
     #remove troublesome factors
     cols.with.factors <- vapply(data.subset, is.factor, logical(1))
     data.subset[cols.with.factors]<- lapply(data.subset[cols.with.factors], as.character)
@@ -341,7 +344,7 @@ loadTableData <- function(data,
     }
     
     tbl = paste0(namespace, table) #add prefix
-        
+
     # explicitly create columns for integer data, unless the column alread exists!
     existing.cols <- getTableColumnNames(table, namespace, net.suid, base.url)
     data.types <- vapply(data.subset, typeof, character(1))
