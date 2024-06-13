@@ -1701,6 +1701,12 @@ test.createNetworkFromDataFrames = function ()
     title = 'test.createNetworkFromDataFrames'
     test.prep (title,FALSE)
     
+    nodesInf <- data.frame(id=c("node 0","node 1","node 2","node 3"),
+           double=as.double(c(2.1,-2.3,Inf,-Inf)), # doubles
+           score=as.integer(c(20,-10,Inf,-Inf)), # integers
+           stringsAsFactors=FALSE)
+    createNetworkFromDataFrames(nodesInf)
+    
     nodes <- data.frame(id=c("node 0","node 1","node 2","node 3"),
                         group=c("A","A","B","B"), # categorical strings
                         score=as.integer(c(20,10,15,5)), # integers
@@ -1710,7 +1716,7 @@ test.createNetworkFromDataFrames = function ()
                         interaction=c("inhibits","interacts","activates","interacts"),  # optional
                         weight=c(5.1,3.0,5.2,9.9), # numeric
                         stringsAsFactors=FALSE)
-        createNetworkFromDataFrames(nodes, edges)
+    createNetworkFromDataFrames(nodes, edges)
 }
 
 #-------------------------------------------------------------------------------
