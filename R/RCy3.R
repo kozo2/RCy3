@@ -6,7 +6,7 @@
 #' \code{browseVignettes("RCy3")}
 #' 
 #' @name RCy3
-#' @docType package
+'_PACKAGE'
 NULL
 
 # ==============================================================================
