@@ -266,7 +266,7 @@ exportImage<-function(filename=NULL, type="PNG", resolution=NULL, units=NULL, he
 #' @export
 exportPNG<-function(filename=NULL, allGraphicsDetails=TRUE, hideLabels=FALSE, transparentBackground=FALSE,
                     zoom=NULL, network=NULL, base.url=.defaultBaseUrl, overwriteFile=TRUE){
-    .verifySupportedVersions(1, "3.10")
+    .verifySupportedVersions(1, "3.10", base.url)
     cmd.string <- 'view export png' # a good start
     
     # filename must be supplied
@@ -339,7 +339,7 @@ exportPNG<-function(filename=NULL, allGraphicsDetails=TRUE, hideLabels=FALSE, tr
 #' @export
 exportJPG<-function(filename=NULL, allGraphicsDetails=TRUE, hideLabels=FALSE,
                     zoom=NULL, network=NULL, base.url=.defaultBaseUrl, overwriteFile=TRUE){
-    .verifySupportedVersions(1, "3.10")
+    .verifySupportedVersions(1, "3.10", base.url)
     cmd.string <- 'view export jpg' # a good start
     
     # filename must be supplied
@@ -410,7 +410,7 @@ exportJPG<-function(filename=NULL, allGraphicsDetails=TRUE, hideLabels=FALSE,
 #' @export
 exportPDF<-function(filename=NULL, exportTextAsFont=TRUE, hideLabels=FALSE, pageSize="Letter",
                     orientation="Portrait", network=NULL, base.url=.defaultBaseUrl, overwriteFile=TRUE){
-    .verifySupportedVersions(1, "3.10")
+    .verifySupportedVersions(1, "3.10", base.url)
     cmd.string <- 'view export pdf' # a good start
     
     # filename must be supplied
@@ -480,7 +480,7 @@ exportPDF<-function(filename=NULL, exportTextAsFont=TRUE, hideLabels=FALSE, page
 #' @export
 exportPS<-function(filename=NULL, exportTextAsFont=TRUE, hideLabels=FALSE,
                     network=NULL, base.url=.defaultBaseUrl, overwriteFile=TRUE){
-    .verifySupportedVersions(1, "3.10")
+    .verifySupportedVersions(1, "3.10", base.url)
     cmd.string <- 'view export ps' # a good start
     
     # filename must be supplied
@@ -546,7 +546,7 @@ exportPS<-function(filename=NULL, exportTextAsFont=TRUE, hideLabels=FALSE,
 #' @export
 exportSVG<-function(filename=NULL, exportTextAsFont=TRUE, hideLabels=FALSE,
                    network=NULL, base.url=.defaultBaseUrl, overwriteFile=TRUE){
-    .verifySupportedVersions(1, "3.10")
+    .verifySupportedVersions(1, "3.10", base.url)
     cmd.string <- 'view export svg' # a good start
     
     # filename must be supplied
