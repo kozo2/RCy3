@@ -20,6 +20,10 @@ A \code{list}, \code{status} or None.
 Using the same syntax as Cytoscape's Command Line Dialog,
 this function converts a command string into a CyREST query URL, executes a GET
 request, and parses the result content into an R list object. Same as commandsGET.
+Extremely long commands may result in an immediate "URI Too Long" failure because
+`commandsRun()` uses HTTP GET to call the CyREST API, and HTTP GET has known limitations.
+You can use `commandsPost()` instead, though the return value will be different.
+`commandsPost()` uses HTTP POST, which has no limitations.
 }
 \examples{
 \donttest{

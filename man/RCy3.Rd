@@ -2,6 +2,7 @@
 % Please edit documentation in R/RCy3.R
 \docType{package}
 \name{RCy3}
+\alias{RCy3-package}
 \alias{RCy3}
 \title{RCy3: Functions to Access and Control Cytoscape}
 \description{
@@ -10,4 +11,31 @@ Vizualize, analyze and explore networks using Cytoscape via R.
 \details{
 To learn more about RCy3, start with the vignettes:
 \code{browseVignettes("RCy3")}
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/cytoscape/RCy3}
+  \item Report bugs at \url{https://github.com/cytoscape/RCy3/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Alex Pico \email{alex.pico@gladstone.ucsf.edu} (\href{https://orcid.org/0000-0001-5706-2163}{ORCID})
+
+Authors:
+\itemize{
+  \item Tanja Muetze \email{tanja.muetze14@alumni.imperial.ac.uk}
+  \item Paul Shannon \email{pshannon@systemsbiology.org}
+}
+
+Other contributors:
+\itemize{
+  \item Ruth Isserlin [contributor]
+  \item Shraddha Pai [contributor]
+  \item Julia Gustavsen [contributor]
+  \item Georgi Kolishovski [contributor]
+  \item Yihang Xin \email{xinsg0@gmail.com} [contributor]
+}
+
 }

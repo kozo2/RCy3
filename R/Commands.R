@@ -330,6 +330,10 @@ commandsAPI<-function(base.url=.defaultBaseUrl){
 #' request, and parses the result content into an R list object.
 #' The function check whether actual call is local or remote first. If remote,
 #' requests will go through Jupyter-Bridge.
+#' Extremely long commands may result in an immediate "URI Too Long" failure because
+#' `commandsRun()` uses HTTP GET to call the CyREST API, and HTTP GET has known limitations.
+#' You can use `commandsPost()` instead, though the return value will be different.
+#' `commandsPost()` uses HTTP POST, which has no limitations.
 #' @param cmd.string (char) command
 #' @param base.url (optional) Ignore unless you need to specify a custom domain,
 #' port or version to connect to the CyREST API. Default is http://localhost:1234
@@ -354,7 +358,7 @@ commandsGET<-function(cmd.string, base.url = .defaultBaseUrl){
             error=function(c) .cyError(c, res),
             warnings=function(c) .cyWarnings(c, res),
             finally=.cyFinally(res)
-        )
+        ) 
         res.html = htmlParse(rawToChar(res$content), asText=TRUE)
         res.elem = xpathSApply(res.html, "//p", xmlValue)
         if(startsWith(res.elem[1],"[")){
@@ -517,6 +521,10 @@ commandsPOST<-function(cmd.string, base.url = .defaultBaseUrl){
 #' @description Using the same syntax as Cytoscape's Command Line Dialog,
 #' this function converts a command string into a CyREST query URL, executes a GET
 #' request, and parses the result content into an R list object. Same as commandsGET.
+#' Extremely long commands may result in an immediate "URI Too Long" failure because
+#' `commandsRun()` uses HTTP GET to call the CyREST API, and HTTP GET has known limitations.
+#' You can use `commandsPost()` instead, though the return value will be different.
+#' `commandsPost()` uses HTTP POST, which has no limitations.
 #' @param cmd.string (char) command
 #' @param base.url (optional) Ignore unless you need to specify a custom domain,
 #' port or version to connect to the CyREST API. Default is http://localhost:1234
@@ -817,6 +825,9 @@ Please check that Cytoscape is running, CyREST is installed and your base.url pa
 .cyFinally<-function(res){
     if(!is.null(res)){
         # Check HTTP Errors
+        if(res$status_code == 414) { 
+            print("URI Too Long: The command you attempted to execute is too large to be handled via GET request. Consider switching to commandsPost() for larger queries.")
+        }
         if(res$status_code > 299){
             write(sprintf("Failed to execute: %s",res[[1]]), stderr())
             if(res[[3]]$`content-type` == "text/plain" ||

@@ -22,6 +22,10 @@ this function converts a command string into a CyREST query URL, executes a GET
 request, and parses the result content into an R list object.
 The function check whether actual call is local or remote first. If remote,
 requests will go through Jupyter-Bridge.
+Extremely long commands may result in an immediate "URI Too Long" failure because
+`commandsRun()` uses HTTP GET to call the CyREST API, and HTTP GET has known limitations.
+You can use `commandsPost()` instead, though the return value will be different.
+`commandsPost()` uses HTTP POST, which has no limitations.
 }
 \examples{
 \donttest{

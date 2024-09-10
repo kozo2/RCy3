@@ -8,7 +8,7 @@ paletteColorVirdis(value.count = 3)
 }
 \arguments{
 \item{value.count}{Number of colors to generate; min is 3 (default); max is 9
-Get colors from https://cran.r-project.org/web/packages/viridis/index.html
+Get colors from viridis: Colorblind-Friendly Color Maps for R
 . See virdis::virdis()}
 }
 \value{
