@@ -1,3 +1,10 @@
+Changes in version 2.26.0
++ Added documentation & checks for super-long commands
+ - suggest users to use commandsPost() when URI too long
++ Bug fixes:
+ - check for Inf and -Inf in double columns during loadTableData, #224
+ - fix missing base.url in some functions
++ Add test functions
 Changes in version 2.24.0
 + Use stringi to replace uchardet
 + Add test functions
