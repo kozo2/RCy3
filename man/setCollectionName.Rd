@@ -9,6 +9,8 @@ setCollectionName(collection.suid = NULL, name, base.url = .defaultBaseUrl)
 \arguments{
 \item{collection.suid}{DESCRIPTION}
 
+\item{name}{The new name for the collection.}
+
 \item{base.url}{(optional) Ignore unless you need to specify a custom domain,
 port or version to connect to the CyREST API. Default is http://localhost:1234
 and the latest version of the CyREST API supported by this version of RCy3.}
